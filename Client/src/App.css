@@ -1,0 +1,141 @@
+.responser {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  text-align: left;
+  padding: 1.25rem 1.5rem 2rem;
+  box-sizing: border-box;
+}
+
+.responser__header {
+  margin-bottom: 1.25rem;
+}
+
+.responser__title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.03em;
+}
+
+.responser__subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text);
+  max-width: 42rem;
+}
+
+.responser__panes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 800px) {
+  .responser__panes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.responser__pane {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  background: var(--panel, var(--code-bg));
+}
+
+.responser__pane-title {
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+
+.responser__label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+.responser__textarea {
+  flex: 1;
+  min-height: 12rem;
+  resize: vertical;
+  font: inherit;
+  line-height: 1.45;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+  box-sizing: border-box;
+}
+
+.responser__textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.responser__send {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  padding: 0.55rem 1.25rem;
+  font: inherit;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-h);
+  background: var(--accent);
+  transition: filter 0.15s ease, opacity 0.15s ease;
+}
+
+.responser__send:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.responser__send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.responser__output {
+  flex: 1;
+  min-height: 12rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  border: 1px dashed var(--border);
+  background: var(--bg);
+  overflow: auto;
+}
+
+.responser__output-text {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text-h);
+}
+
+.responser__placeholder {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.responser__error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.95rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .responser__error {
+    color: #fca5a5;
+  }
+}
