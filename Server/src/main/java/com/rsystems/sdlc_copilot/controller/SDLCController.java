@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/sdlc")
 @CrossOrigin(origins = "*")
 public class SDLCController {
-
-    @Value("${gemini.api.key}")
+    
+    @Value("${GEMINI_API_KEY}")
     private String geminiKey;
 
-    @Value("${openai.api.key}")
+    @Value("${OPENAI_API_KEY}")
     private String openaiKey;
 
     @PostMapping("/generate-stories")
