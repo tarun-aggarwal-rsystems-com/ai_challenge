@@ -3,6 +3,7 @@ package com.rsystems.sdlc_copilot.model;
 import java.util.List;
 
 public record UserStoryResult(
+        Integer characterCount,
         String projectSummary, // <-- Added to meet rubric Task 2
         List<String> ambiguities,
         String mermaidDiagram,

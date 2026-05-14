@@ -52,10 +52,74 @@ public class SDLCController {
         }
 
         // Create the agent using the selected model
+
         SDLCRequirementsAgent agent = AiServices.builder(SDLCRequirementsAgent.class)
-                .chatModel(model) // <-- Fixed builder method!
+
+                .chatModel(model)
+
                 .build();
 
-        return agent.generateUserStories(rawText);
+
+
+        // Calculate character count early so we have it no matter what happens
+
+        int charCount = (rawText != null) ? rawText.length() : 0;
+
+
+
+        try {
+
+            // 1. ATTEMPT: Let the AI generate the complex stuff
+
+            UserStoryResult aiResult = agent.generateUserStories(rawText);
+
+
+
+            // 2. SUCCESS: Package the AI result WITH your calculated character count
+
+            return new UserStoryResult(
+
+                    charCount,
+
+                    aiResult.projectSummary(),
+
+                    aiResult.ambiguities(),
+
+                    aiResult.mermaidDiagram(),
+
+                    aiResult.userStories()
+
+            );
+
+
+
+        } catch (Exception e) {
+
+            // 3. FAILURE HANDLING: The AI crashed (Quota, Leaked Key, Timeout, etc.)
+
+            System.err.println("🚨 AI Service Error: " + e.getMessage());
+
+
+
+            // 4. GRACEFUL FALLBACK: Return the character count, but empty out the AI fields
+
+            // so the frontend doesn't crash with a 500 error!
+
+            return new UserStoryResult(
+
+                    charCount, // <-- TL's requirement: Char count still gets returned!
+
+                    "⚠️ AI Generation Failed: The AI provider is currently unavailable (e.g., Quota Exceeded). However, your text was successfully received.",
+
+                    java.util.List.of(), // Empty List for ambiguities
+
+                    "",                  // Empty String for diagram
+
+                    java.util.List.of()  // Empty List for user stories
+
+            );
+
+        }
+       // return agent.generateUserStories(rawText);
     }
 }
