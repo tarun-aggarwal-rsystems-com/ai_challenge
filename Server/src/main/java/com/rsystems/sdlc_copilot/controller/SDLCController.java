@@ -14,15 +14,25 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/sdlc")
 @CrossOrigin(origins = "*")
 public class SDLCController {
-    
-    @Value("${GEMINI_API_KEY}")
+
+    @Value("${gemini.api.key}")
     private String geminiKey;
 
-    @Value("${OPENAI_API_KEY}")
+    @Value("${openai.api.key}")
     private String openaiKey;
 
     @PostMapping("/generate-stories")
-    public UserStoryResult generate(@RequestBody String rawText, @RequestParam(defaultValue = "gemini") String provider) {
+    public UserStoryResult generate(@RequestBody(required = false) String rawText, @RequestParam(defaultValue = "gemini") String provider) {
+
+        System.out.println("====== INCOMING REQUEST DEBUG ======");
+        if (rawText == null || rawText.trim().isEmpty()) {
+            System.out.println("No of characters: 0 (Input is null or empty)");
+            throw new IllegalArgumentException("Requirements text cannot be empty.");
+        } else {
+            System.out.println("Received Input: " + rawText);
+            System.out.println("No of characters: " + rawText.length());
+        }
+        System.out.println("====================================");
 
         ChatModel model; // <-- Fixed class name!
 
