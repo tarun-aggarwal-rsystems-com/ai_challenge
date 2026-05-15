@@ -1,11 +1,14 @@
 package com.rsystems.sdlc_copilot.agent;
 
-
 import com.rsystems.sdlc_copilot.model.UserStoryResult;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 
 public interface SDLCRequirementsAgent {
+
+    // ==========================================
+    // METHOD 1: THE CREATOR (For new requirements)
+    // ==========================================
     @SystemMessage({
             "You are an elite Agile Product Manager and System Architect.",
             "CRITICAL INSTRUCTION: Return ONLY raw, valid JSON. Do not use ```json markdown tags.",
@@ -17,4 +20,17 @@ public interface SDLCRequirementsAgent {
             "   - A Fibonacci 'estimate' and brief 'reasoning'."
     })
     UserStoryResult generateUserStories(@UserMessage String rawRequirements);
+
+
+    // ==========================================
+    // METHOD 2: THE EDITOR (For refining existing dashboards)
+    // ==========================================
+    @SystemMessage({
+            "You are an elite Agile Product Manager and System Architect.",
+            "CRITICAL INSTRUCTION: Return ONLY raw, valid JSON. Do not use ```json markdown tags.",
+            "You are acting as an Editor. You will receive an existing JSON dashboard and a user's instruction to change it.",
+            "Apply the user's instruction to the existing JSON and return the fully updated JSON.",
+            "Keep the exact same data structure: characterCount, projectSummary, ambiguities, mermaidDiagram, and userStories."
+    })
+    UserStoryResult refineUserStories(@UserMessage String prompt);
 }
