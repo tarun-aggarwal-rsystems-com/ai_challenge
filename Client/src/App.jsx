@@ -66,7 +66,7 @@ export default function App() {
             onClick={handleSend}
             disabled={status === 'loading' || !input.trim()}
           >
-            {status === 'loading' ? 'Sending…' : 'Send'}
+            {status === 'loading' ? 'Thinking...' : 'Send'}
           </button>
         </div>
       </section>
